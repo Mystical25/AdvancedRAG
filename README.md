@@ -110,25 +110,7 @@ ollama serve
 ```
 `config.py` expects Ollama at `http://localhost:11434` — change `OLLAMA_BASE_URL` there if yours runs elsewhere.
 
-### 5. Add the missing supporting modules
-These are imported everywhere but aren't part of this file set — add them before running anything:
-- `utils/logger.py` — must expose `get_logger(name)`.
-- `utils/helpers.py` — must expose `normalize_whitespace`, `compute_file_sha256`, `file_exists`, `load_json`, `save_json`, `save_numpy`.
-- `models/embedding.py`, `models/vision.py`, `models/reranker.py`, `models/llm.py` — your model wrappers.
-- Empty `__init__.py` files in `extraction/`, `pipeline/`, and `scripts/` so they import as packages.
-
-### 6. Fix the import in `pipeline/generator.py`
-It currently reads:
-```python
-from pipeline.indexing import IndexedChunk
-```
-Change it to:
-```python
-from pipeline.indexing_new import IndexedChunk
-```
-(There is no `pipeline/indexing.py` in this project — only `indexing_new.py`.)
-
-### 7. Add your PDF
+### 5. Add your PDF
 Drop your file into `documents/` and point `config.py` at it:
 ```python
 DEFAULT_DOCUMENT_PATH = DOCUMENTS_DIR / "new_sample.pdf"   # Docling workflow
@@ -141,9 +123,24 @@ PYMUDF_PDF_PATH = DOCUMENTS_DIR / "new_sample.pdf"         # PyMuPDF workflow
 
 ### Option A — Docling workflow (extract → enrich → ingest)
 
-Run the chat loop. On first run, if no index exists yet, it walks the Docling
-extract-enrich-ingest chain, then drops you straight into Q&A:
+Use to get the enriched markdown from Docling's native backend along with .json and .txt files
 
+**Step 1 — Extract the PDF as markdown text and json files**
+```bash
+python extraction\extract_document.py
+```
+
+**Step 2 — Ennrich markdown with vision captions:**
+```bash
+python scripts\document_enricher.py
+```
+
+**Step 3 — Ingest the enriched Markdown into the retrieval index:**
+```bash
+python scripts/ingest_enriched.py
+```
+
+**Step 3 — Ask questions:**
 ```bash
 python chat_loop.py
 ```
@@ -219,7 +216,8 @@ PyMuPDF-specific intermediate output:
 ## Notes
 
 - `config.py` centralizes every path, model name, and chunking/indexing parameter — do
-  not hardcode paths in the other modules; update `config.py` only.
+  not hardcode paths in the other modules; update `config.py` only. And change the paths
+  to keep the data saved for both the methods.
 - `MAX_CONSECUTIVE_PICTURE_DESCRIPTIONS`, `MIN_IMAGE_DIMENSION_FOR_DESCRIPTION`, and the
   chunk-size settings in `config.py` are the main knobs for retrieval quality if answers
   seem to be missing figure context or chunks look too small/large.
