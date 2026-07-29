@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Data and artifacts
+data_new/
+output/
+output_new_sample_final/
+output_new/
+cache/
+cache_new/
+renv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PyCharm / VSCode
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Model caches
+transformers.cache/
+.huggingface/
