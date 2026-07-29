@@ -213,6 +213,18 @@ PyMuPDF-specific intermediate output:
 - `output_new_sample_final/images/`
 
 ---
+## Evaluation Results
+
+Ran both the workflows on two pdf documents:
+Pdf 1 : `https://ladakh.iisdindia.in/fd/Leh%20Vision%202030%20Final%20Dec2020.pdf`
+Asked a total of 60 questions (30-Paragraph, 15 from Tables/Lists, 5 from Figures and 10 one line answers)
+- Docling Enriched Method : Had an Accuracy of 73.3%
+- Pymupdf Enriched Method : Had an Accuracy of 73.3%
+
+Pdf 2 : `https://www.niti.gov.in/sites/default/files/2023-03/Vision-2035-Public-Health-Surveillance-in-India.pdf`
+Asked a total of 40 questions (10-Paragraph, 15 from Tables/Lists, 10 from Figures and 5 one line answers)
+- Docling Enriched Method : Had an Accuracy of 52.7%
+- Pymupdf Enriched Method : Had an Accuracy of 67.5%
 
 ## Notes
 
