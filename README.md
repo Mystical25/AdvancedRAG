@@ -45,6 +45,7 @@ index, `chat_loop.py` can query it.
 │   ├── indexing_new.py                # chunking, embeddings, FAISS + BM25 build
 │   ├── generator.py                   # prompt building + LLM answer generation
 │   └── pymupdf_vision.py              # fills *TO_BE_FILLED_BY_VISION_PIPELINE* placeholders (PyMuPDF workflow)
+|   └── retrieval.py                   # loads indexes, embeds question, merges top k retrievals of dense and sparse search, reranks and returns final chunks
 │
 ├── scripts/
 │   ├── __init__.py
