@@ -1,4 +1,4 @@
-# AdvancedRAG — Enriched PDF Ingestion & Local RAG Chat
+# Multimodal AdvancedRAG — Enriched PDF Ingestion & Local RAG Chat
 
 A local, single-document Retrieval-Augmented Generation (RAG) system. It turns a PDF
 into a searchable index (dense + sparse retrieval, cross-encoder reranking) and lets
